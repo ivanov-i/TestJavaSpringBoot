@@ -1,15 +1,10 @@
-/*INSERT INTO products (id, serial_number, manufacturer, price, quantity) VALUES (1, 'ABC123', 'Manufacturer A', 100.00, 10);
-INSERT INTO products (id, serial_number, manufacturer, price, quantity) VALUES (2, 'DEF456', 'Manufacturer B', 200.00, 5);
+INSERT INTO product (id, serial_number, manufacturer, price, quantity) VALUES (1, 'SN001', 'IBM', 1200.00, 10);
+INSERT INTO product (id, serial_number, manufacturer, price, quantity) VALUES (2, 'SN002', 'SGI', 1000.00, 15);
+INSERT INTO product (id, serial_number, manufacturer, price, quantity) VALUES (3, 'SN003', 'BBC', 800.00, 20);
+INSERT INTO product (id, serial_number, manufacturer, price, quantity) VALUES (4, 'SN004', 'Seagate', 100.00, 50);
 
-INSERT INTO desktop_computers (id, form_factor) VALUES (1, 'Tower');
-INSERT INTO desktop_computers (id, form_factor) VALUES (2, 'Mini');
+INSERT INTO desktop (id, type) VALUES (1, 'DESKTOP');
+INSERT INTO laptop (id, size) VALUES (2, 15.0);
+INSERT INTO monitor (id, diagonal) VALUES (3, 27.0);
+INSERT INTO hard_drive (id, capacity) VALUES (4, 500);
 
-INSERT INTO laptops (id, size) VALUES (1, 15);
-INSERT INTO laptops (id, size) VALUES (2, 13);
-
-INSERT INTO monitors (id, diagonal) VALUES (1, 24);
-INSERT INTO monitors (id, diagonal) VALUES (2, 27);
-
-INSERT INTO hard_drives (id, capacity) VALUES (1, 500);
-INSERT INTO hard_drives (id, capacity) VALUES (2, 1000);
-*/

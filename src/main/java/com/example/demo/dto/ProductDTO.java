@@ -2,6 +2,17 @@ package com.example.demo.dto;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
+@JsonSubTypes({
+    @JsonSubTypes.Type(value = DesktopDTO.class, name = "desktop"),
+    @JsonSubTypes.Type(value = LaptopDTO.class, name = "laptop"),
+    @JsonSubTypes.Type(value = MonitorDTO.class, name = "monitor"),
+    @JsonSubTypes.Type(value = HardDriveDTO.class, name = "hard_drive")
+})
+
 public class ProductDTO {
     private Long id;
     private String serialNumber;

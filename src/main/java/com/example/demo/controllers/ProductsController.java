@@ -2,7 +2,6 @@ package com.example.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.DesktopDTO;
@@ -17,21 +16,28 @@ import com.example.demo.entities.Monitor;
 import com.example.demo.entities.Product;
 import com.example.demo.repositories.ProductRepository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
-public class ProductController {
-    
+public class ProductsController {
+
     private final ProductRepository productRepository;
-    
+
     @Autowired
-    public ProductController(ProductRepository productRepository) {
+    public ProductsController(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
-    @GetMapping("/products/{id}")
-    public ProductDTO getProductById(@PathVariable Long id) {
-        return productRepository.findById(id).map(this::convertToDTO).orElse(null);
+    @GetMapping("/products")
+    public List<ProductDTO> getAllProducts() {
+        List<Product> products = productRepository.findAll();
+        
+        return products.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
-
+    
     private ProductDTO convertToDTO(Product product) {
         if (product instanceof Desktop) {
             Desktop desktop = (Desktop) product;

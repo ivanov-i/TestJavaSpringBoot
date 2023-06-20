@@ -1,11 +1,11 @@
 package com.example.demo.entities;
 
-import jakarta.persistence.Table;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
 @Entity
-@Table(name = "monitors")
 public class Monitor extends Product {
+	@Column(name = "diagonal")
     private double diagonal;
 
 	public double getDiagonal() {

@@ -1,11 +1,12 @@
 package com.example.demo.entities;
 
-import jakarta.persistence.Table;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
 @Entity
-@Table(name = "laptops")
 public class Laptop extends Product {
+
+    @Column(name = "size")
     private int size;
 
 	public int getSize() {
@@ -15,4 +16,5 @@ public class Laptop extends Product {
 	public void setSize(int size) {
 		this.size = size;
 	}
+
 }

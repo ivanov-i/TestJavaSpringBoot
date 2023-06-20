@@ -1,18 +1,22 @@
 package com.example.demo.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 
 @Entity
-@Table(name = "desktops")
 public class Desktop extends Product {
-    private String formFactor;
 
-	public String getFormFactor() {
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type")
+    private DesktopFormFactor formFactor;
+
+	public DesktopFormFactor getFormFactor() {
 		return formFactor;
 	}
 
-	public void setFormFactor(String formFactor) {
+	public void setType(DesktopFormFactor formFactor) {
 		this.formFactor = formFactor;
 	}
 }

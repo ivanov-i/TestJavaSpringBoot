@@ -8,3 +8,5 @@ INSERT INTO laptop (id, size) VALUES (2, 15.0);
 INSERT INTO monitor (id, diagonal) VALUES (3, 27.0);
 INSERT INTO hard_drive (id, capacity) VALUES (4, 500);
 
+ALTER TABLE product ALTER COLUMN id RESTART WITH (SELECT MAX(id) FROM product) + 1;
+

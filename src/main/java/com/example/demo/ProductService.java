@@ -61,5 +61,12 @@ public class ProductService {
     public List<HardDrive> getAllHardDrives() {
         return hardDriveRepository.findAll();
     }
+
+	public Desktop createDesktop(Desktop desktop) {
+		if (desktop.getId() != null) {
+			throw new IllegalArgumentException("New computer should not have an ID");
+		}
+		return desktopRepository.save(desktop);
+	}
 }
 

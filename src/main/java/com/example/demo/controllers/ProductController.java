@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.ProductService;
@@ -40,7 +42,7 @@ public class ProductController {
 			.collect(Collectors.toList());
     }
 
-    @GetMapping("/Desktops")
+    @GetMapping("/desktops")
     public List<DesktopDTO> getAllDesktops() {
 		return productService
 			.getAllDesktops()
@@ -82,6 +84,16 @@ public class ProductController {
 			.map(this::convertToDTO)
 			.<ResponseEntity<?>>map(dto -> ResponseEntity.ok(dto))
 			.orElseGet(() -> new ResponseEntity<>("Product with id " + id + " was not found.", HttpStatus.NOT_FOUND));
+	}
+
+	@PostMapping("/desktops")
+	public ResponseEntity<?> createDesktop(@RequestBody Desktop newDesktop) {
+		try {
+			var result = productService.createDesktop(newDesktop);
+			return ResponseEntity.ok(convertToDTO(result));
+		    } catch (IllegalArgumentException e) {
+				return ResponseEntity.badRequest().body(e.getMessage());
+			}
 	}
 
     private ProductDTO convertToDTO(Product product) {

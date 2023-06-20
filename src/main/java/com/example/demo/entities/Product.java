@@ -18,7 +18,7 @@ public abstract class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
-    @Column(name = "serial_number", nullable = false, unique = true)
+    @Column(name = "serial_number")
     protected String serialNumber;
 
     @Column(name = "manufacturer")

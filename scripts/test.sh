@@ -23,6 +23,8 @@ echo
 echo original: $old
 echo updated : $new
 
+curl -s -X DELETE http://localhost:8080/products/$id
+
 echo
 echo -----------laptops----------------
 
@@ -45,6 +47,8 @@ echo updated successfully
 echo
 echo original: $old
 echo updated : $new
+
+curl -s -X DELETE  http://localhost:8080/products/$id
 
 echo
 echo -----------monitors----------------
@@ -69,6 +73,7 @@ echo
 echo original: $old
 echo updated : $new
 
+curl -s -X DELETE  http://localhost:8080/products/$id
 
 echo
 echo -----------hdds----------------
@@ -92,5 +97,7 @@ echo updated successfully
 echo
 echo original: $old
 echo updated : $new
+
+curl -s -X DELETE  http://localhost:8080/products/$id
 
 

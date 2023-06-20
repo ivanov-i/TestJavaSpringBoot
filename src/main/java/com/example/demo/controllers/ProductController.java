@@ -1,10 +1,16 @@
 package com.example.demo.controllers;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.ProductService;
 import com.example.demo.dto.DesktopDTO;
 import com.example.demo.dto.HardDriveDTO;
 import com.example.demo.dto.LaptopDTO;
@@ -15,22 +21,34 @@ import com.example.demo.entities.HardDrive;
 import com.example.demo.entities.Laptop;
 import com.example.demo.entities.Monitor;
 import com.example.demo.entities.Product;
-import com.example.demo.repositories.ProductRepository;
 
 @RestController
 public class ProductController {
     
-    private final ProductRepository productRepository;
+    private final ProductService productService;
     
     @Autowired
-    public ProductController(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
+    @GetMapping("/products")
+    public List<ProductDTO> getAllProducts() {
+        List<Product> products = productService.getAllProducts();
+        
+        return products.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/products/{id}")
-    public ProductDTO getProductById(@PathVariable Long id) {
-        return productRepository.findById(id).map(this::convertToDTO).orElse(null);
-    }
+    public ResponseEntity<?> getProductById(@PathVariable Long id) {
+        return productService
+			.getProductById(id)
+			.map(this::convertToDTO)
+			.<ResponseEntity<?>>map(dto -> ResponseEntity.ok(dto))
+			.orElseGet(() -> new ResponseEntity<>("Product with id " + id + " was not found.", HttpStatus.NOT_FOUND));
+	}
 
     private ProductDTO convertToDTO(Product product) {
         if (product instanceof Desktop) {

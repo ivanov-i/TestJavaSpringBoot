@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -90,6 +91,16 @@ public class ProductController {
 	public ResponseEntity<?> createDesktop(@RequestBody Desktop newDesktop) {
 		try {
 			var result = productService.createDesktop(newDesktop);
+			return ResponseEntity.ok(convertToDTO(result));
+		    } catch (IllegalArgumentException e) {
+				return ResponseEntity.badRequest().body(e.getMessage());
+			}
+	}
+
+	@PutMapping("/desktops/{id}")
+	public ResponseEntity<?> updateDesktop(@PathVariable Long id, @RequestBody Desktop newDesktop) {
+		try {
+			var result = productService.updateDesktop(id, newDesktop);
 			return ResponseEntity.ok(convertToDTO(result));
 		    } catch (IllegalArgumentException e) {
 				return ResponseEntity.badRequest().body(e.getMessage());

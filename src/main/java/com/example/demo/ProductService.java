@@ -68,5 +68,41 @@ public class ProductService {
 		}
 		return desktopRepository.save(desktop);
 	}
+
+	public Desktop updateDesktop(Long id, Desktop newDesktop) {
+		Desktop desktop = desktopRepository.findById(id)
+			.orElseThrow(() -> new IllegalArgumentException("Invalid desktop ID: " + id));
+
+		var newSerialNumber = newDesktop.getSerialNumber();
+		if(newSerialNumber != null)
+		{
+			desktop.setSerialNumber(newSerialNumber);
+		}
+
+		var newManufacturer = newDesktop.getManufacturer();
+		if(newManufacturer != null)
+		{
+			desktop.setManufacturer(newManufacturer);
+		}
+
+		var newPrice = newDesktop.getPrice();
+		if(newPrice != null)
+		{
+			desktop.setPrice(newPrice);
+		}
+
+		var newQuantity = newDesktop.getQuantity();
+		if(newQuantity != null)
+		{
+			desktop.setQuantity(newQuantity);
+		}
+
+		var newFormFactor = newDesktop.getFormFactor();
+		if(newFormFactor != null)
+		{
+			desktop.setFormFactor(newFormFactor);
+		}
+		return desktopRepository.save(desktop);
+	}
 }
 

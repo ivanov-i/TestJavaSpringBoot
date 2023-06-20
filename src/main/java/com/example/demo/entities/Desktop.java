@@ -16,7 +16,7 @@ public class Desktop extends Product {
 		return formFactor;
 	}
 
-	public void setType(DesktopFormFactor formFactor) {
+	public void setFormFactor(DesktopFormFactor formFactor) {
 		this.formFactor = formFactor;
 	}
 }

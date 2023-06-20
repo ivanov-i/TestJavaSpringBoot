@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 public enum DesktopFormFactor {
 	DESKTOP,
 	NETTOP,
-	MONOBLOCK;
+	ALL_IN_ONE;
 
 	@JsonCreator
 	public static DesktopFormFactor forValue(String value) {

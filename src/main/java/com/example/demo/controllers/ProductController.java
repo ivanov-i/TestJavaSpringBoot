@@ -34,11 +34,45 @@ public class ProductController {
 
     @GetMapping("/products")
     public List<ProductDTO> getAllProducts() {
-        List<Product> products = productService.getAllProducts();
-        
-        return products.stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+		return productService.getAllProducts()
+			.stream()
+			.map(this::convertToDTO)
+			.collect(Collectors.toList());
+    }
+
+    @GetMapping("/Desktops")
+    public List<DesktopDTO> getAllDesktops() {
+		return productService
+			.getAllDesktops()
+			.stream()
+			.map(this::convertToDTO)
+			.collect(Collectors.toList());
+    }
+
+    @GetMapping("/laptops")
+    public List<LaptopDTO> getAllLaptops() {
+		return productService
+			.getAllLaptops()
+			.stream()
+			.map(this::convertToDTO)
+			.collect(Collectors.toList());
+    }
+
+    @GetMapping("/monitors")
+    public List<MonitorDTO> getAllMonitors() {
+		return productService
+			.getAllMonitors()
+			.stream()
+			.map(this::convertToDTO)
+			.collect(Collectors.toList());
+    }
+
+    @GetMapping("/hdds")
+    public List<HardDriveDTO> getAllHardDrives() {
+		return productService.getAllHardDrives()
+			.stream()
+			.map(this::convertToDTO)
+			.collect(Collectors.toList());
     }
 
     @GetMapping("/products/{id}")
@@ -53,24 +87,35 @@ public class ProductController {
     private ProductDTO convertToDTO(Product product) {
         if (product instanceof Desktop) {
             Desktop desktop = (Desktop) product;
-            return new DesktopDTO(desktop.getId(), desktop.getSerialNumber(), desktop.getManufacturer(), 
-                    desktop.getPrice(), desktop.getQuantity(), desktop.getFormFactor());
+            return convertToDTO(desktop);
         } else if (product instanceof Laptop) {
             Laptop laptop = (Laptop) product;
-            return new LaptopDTO(laptop.getId(), laptop.getSerialNumber(), laptop.getManufacturer(),
-                    laptop.getPrice(), laptop.getQuantity(), laptop.getSize());
+            return convertToDTO(laptop);
         } else if (product instanceof Monitor) {
             Monitor monitor = (Monitor) product;
-            return new MonitorDTO(monitor.getId(), monitor.getSerialNumber(), monitor.getManufacturer(),
-                    monitor.getPrice(), monitor.getQuantity(), monitor.getDiagonal());
+			return convertToDTO(monitor);
         } else if (product instanceof HardDrive) {
             HardDrive hardDrive = (HardDrive) product;
-            return new HardDriveDTO(hardDrive.getId(), hardDrive.getSerialNumber(), hardDrive.getManufacturer(),
-                    hardDrive.getPrice(), hardDrive.getQuantity(), hardDrive.getCapacity());
+			return convertToDTO(hardDrive);
         }
         
-        // Return null or throw an exception if needed
         return null;
     }
+	private DesktopDTO convertToDTO(Desktop desktop) {
+            return new DesktopDTO(desktop.getId(), desktop.getSerialNumber(), desktop.getManufacturer(), 
+                    desktop.getPrice(), desktop.getQuantity(), desktop.getFormFactor());
+	}
+	private LaptopDTO convertToDTO(Laptop laptop) {
+			return new LaptopDTO(laptop.getId(), laptop.getSerialNumber(), laptop.getManufacturer(), 
+					laptop.getPrice(), laptop.getQuantity(), laptop.getSize());
+	}
+	private HardDriveDTO convertToDTO(HardDrive hardDrive) {
+			return new HardDriveDTO(hardDrive.getId(), hardDrive.getSerialNumber(), hardDrive.getManufacturer(), 
+					hardDrive.getPrice(), hardDrive.getQuantity(), hardDrive.getCapacity());
+	}
+	private MonitorDTO convertToDTO(Monitor monitor) {
+			return new MonitorDTO(monitor.getId(), monitor.getSerialNumber(), monitor.getManufacturer(), 
+					monitor.getPrice(), monitor.getQuantity(), monitor.getDiagonal());
+	}
 }
 

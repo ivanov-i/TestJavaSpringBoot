@@ -58,7 +58,7 @@ public class ProductService {
         return monitorRepository.findAll();
     }
 
-    public List<HardDrive> getAllHardDrivess() {
+    public List<HardDrive> getAllHardDrives() {
         return hardDriveRepository.findAll();
     }
 }

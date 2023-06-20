@@ -7,4 +7,12 @@ import jakarta.persistence.Entity;
 @Table(name = "laptops")
 public class Laptop extends Product {
     private int size;
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
 }

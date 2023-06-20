@@ -1,27 +1,20 @@
-package com.example.demo.entities;
+package com.example.demo.dto;
 
 import java.math.BigDecimal;
 
-import jakarta.persistence.DiscriminatorColumn;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
-
-@Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@DiscriminatorColumn(name = "product_type")
-public abstract class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class ProductDTO {
     private Long id;
     private String serialNumber;
     private String manufacturer;
     private BigDecimal price;
     private int quantity;
-
+	public ProductDTO(Long id2, String serialNumber2, String manufacturer2, BigDecimal price2, int quantity2) {
+		this.id = id2;
+		this.serialNumber = serialNumber2;
+		this.manufacturer = manufacturer2;
+		this.price = price2;
+		this.quantity = quantity2;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -53,3 +46,5 @@ public abstract class Product {
 		this.quantity = quantity;
 	}
 }
+
+

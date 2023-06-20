@@ -7,4 +7,12 @@ import jakarta.persistence.Table;
 @Table(name = "desktops")
 public class Desktop extends Product {
     private String formFactor;
+
+	public String getFormFactor() {
+		return formFactor;
+	}
+
+	public void setFormFactor(String formFactor) {
+		this.formFactor = formFactor;
+	}
 }

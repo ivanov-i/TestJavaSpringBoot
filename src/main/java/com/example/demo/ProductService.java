@@ -90,60 +90,67 @@ public class ProductService {
 		return hardDriveRepository.save(hardDrive);
 	}
 
-	public Desktop updateDesktop(Long id, Desktop newDesktop) {
-		Desktop desktop = desktopRepository.findById(id)
-			.orElseThrow(() -> new IllegalArgumentException("Invalid desktop ID: " + id));
+	public Optional<Desktop> updateDesktop(Long id, Desktop newDesktop) {
+		return desktopRepository
+			.findById(id)
+			.map(desktop -> {
 
-		desktop = (Desktop) updateProduct(id, newDesktop);
+				desktop = (Desktop) updateProduct(id, newDesktop);
 
-		var newFormFactor = newDesktop.getFormFactor();
-		if(newFormFactor != null)
-		{
-			desktop.setFormFactor(newFormFactor);
-		}
-		return desktopRepository.save(desktop);
+				var newFormFactor = newDesktop.getFormFactor();
+				if(newFormFactor != null)
+				{
+					desktop.setFormFactor(newFormFactor);
+				}
+				return desktopRepository.save(desktop);
+			});
 	}
 
-	public Laptop updateLaptop(Long id, Laptop newLaptop) {
-		Laptop laptop = laptopRepository.findById(id)
-			.orElseThrow(() -> new IllegalArgumentException("Invalid laptop ID: " + id));
+	public Optional<Laptop> updateLaptop(Long id, Laptop newLaptop) {
+		return laptopRepository
+			.findById(id)
+			.map( laptop -> {
 
-		laptop = (Laptop) updateProduct(id, newLaptop);
+				laptop = (Laptop) updateProduct(id, newLaptop);
 
-		var newSize = newLaptop.getSize();
-		if(newSize != null)
-		{
-			laptop.setSize(newSize);
-		}
-		return laptopRepository.save(laptop);
+				var newSize = newLaptop.getSize();
+				if(newSize != null)
+				{
+					laptop.setSize(newSize);
+				}
+				return laptopRepository.save(laptop);
+			});
 	}
 
-	public Monitor updateMonitor(Long id, Monitor newMonitor) {
-		Monitor monitor = monitorRepository.findById(id)
-			.orElseThrow(() -> new IllegalArgumentException("Invalid monitor ID: " + id));
+	public Optional<Monitor> updateMonitor(Long id, Monitor newMonitor) {
+		return monitorRepository
+			.findById(id)
+			.map(monitor -> {
 
-		monitor = (Monitor) updateProduct(id, newMonitor);
+				monitor = (Monitor) updateProduct(id, newMonitor);
 
-		var newDiagonal = newMonitor.getDiagonal();
-		if(newDiagonal != null)
-		{
-			monitor.setDiagonal(newDiagonal);
-		}
-		return monitorRepository.save(monitor);
+				var newDiagonal = newMonitor.getDiagonal();
+				if(newDiagonal != null)
+				{
+					monitor.setDiagonal(newDiagonal);
+				}
+				return monitorRepository.save(monitor);
+			});
 	}
 
-	public HardDrive updateHardDrive(Long id, HardDrive newHardDrive) {
-		HardDrive hardDrive = hardDriveRepository.findById(id)
-			.orElseThrow(() -> new IllegalArgumentException("Invalid hard drive ID: " + id));
+	public Optional<HardDrive> updateHardDrive(Long id, HardDrive newHardDrive) {
+		return hardDriveRepository
+			.findById(id)
+			.map(hardDrive -> {
+				hardDrive = (HardDrive) updateProduct(id, newHardDrive);
 
-		hardDrive = (HardDrive) updateProduct(id, newHardDrive);
-
-		var newCapacity = newHardDrive.getCapacity();
-		if(newCapacity != null)
-		{
-			hardDrive.setCapacity(newCapacity);
-		}
-		return hardDriveRepository.save(hardDrive);
+				var newCapacity = newHardDrive.getCapacity();
+				if(newCapacity != null)
+				{
+					hardDrive.setCapacity(newCapacity);
+				}
+				return hardDriveRepository.save(hardDrive);
+			});
 	}
 
 	private Product updateProduct(Long id, Product newProduct) {
@@ -174,6 +181,14 @@ public class ProductService {
 			product.setQuantity(newQuantity);
 		}
 		return productRepository.save(product);
+	}
+
+	public boolean deleteProductById(Long id) {
+		if (productRepository.existsById(id)) {
+			productRepository.deleteById(id);
+			return true;
+		}
+		return false;
 	}
 }
 

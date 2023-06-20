@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -131,7 +132,9 @@ public class ProductController {
 	public ResponseEntity<?> updateDesktop(@PathVariable Long id, @RequestBody Desktop newDesktop) {
 		try {
 			var result = productService.updateDesktop(id, newDesktop);
-			return ResponseEntity.ok(convertToDTO(result));
+			return result
+				.<ResponseEntity<?>>map(desktop -> ResponseEntity.ok(convertToDTO(desktop)))
+			.orElseGet(() -> new ResponseEntity<>("Desktop with id " + id + " was not found.", HttpStatus.NOT_FOUND));
 		} catch (IllegalArgumentException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
@@ -141,7 +144,9 @@ public class ProductController {
 	public ResponseEntity<?> updateLaptop(@PathVariable Long id, @RequestBody Laptop newLaptop) {
 		try {
 			var result = productService.updateLaptop(id, newLaptop);
-			return ResponseEntity.ok(convertToDTO(result));
+			return result
+				.<ResponseEntity<?>>map(laptop -> ResponseEntity.ok(convertToDTO(laptop)))
+			.orElseGet(() -> new ResponseEntity<>("Laptop with id " + id + " was not found.", HttpStatus.NOT_FOUND));
 		} catch (IllegalArgumentException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
@@ -151,7 +156,9 @@ public class ProductController {
 	public ResponseEntity<?> updateMonitor(@PathVariable Long id, @RequestBody Monitor newMonitor) {
 		try {
 			var result = productService.updateMonitor(id, newMonitor);
-			return ResponseEntity.ok(convertToDTO(result));
+			return result
+				.<ResponseEntity<?>>map(monitor -> ResponseEntity.ok(convertToDTO(monitor)))
+			.orElseGet(() -> new ResponseEntity<>("Monitor with id " + id + " was not found.", HttpStatus.NOT_FOUND));
 		} catch (IllegalArgumentException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
@@ -161,10 +168,19 @@ public class ProductController {
 	public ResponseEntity<?> updateHardDrive(@PathVariable Long id, @RequestBody HardDrive newHardDrive) {
 		try {
 			var result = productService.updateHardDrive(id, newHardDrive);
-			return ResponseEntity.ok(convertToDTO(result));
+			return result
+				.<ResponseEntity<?>>map(hardDrive -> ResponseEntity.ok(convertToDTO(hardDrive)))
+			.orElseGet(() -> new ResponseEntity<>("Hard drive with id " + id + " was not found.", HttpStatus.NOT_FOUND));
 		} catch (IllegalArgumentException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
+	}
+
+	@DeleteMapping("/products/{id}")
+	public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
+		return productService.deleteProductById(id)
+			? ResponseEntity.ok().build()
+			: ResponseEntity.notFound().build();
 	}
 
     private ProductDTO convertToDTO(Product product) {

@@ -7,13 +7,13 @@ import jakarta.persistence.Entity;
 public class Laptop extends Product {
 
     @Column(name = "size")
-    private double size;
+    private Double size;
 
-	public double getSize() {
+	public Double getSize() {
 		return size;
 	}
 
-	public void setSize(double size) {
+	public void setSize(Double size) {
 		this.size = size;
 	}
 

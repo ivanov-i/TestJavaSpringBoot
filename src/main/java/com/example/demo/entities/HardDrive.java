@@ -6,13 +6,13 @@ import jakarta.persistence.Entity;
 @Entity
 public class HardDrive extends Product {
 	@Column(name = "capacity")
-    private int capacity;
+    private Integer capacity;
 
-	public int getCapacity() {
+	public Integer getCapacity() {
 		return capacity;
 	}
 
-	public void setCapacity(int capacity) {
+	public void setCapacity(Integer capacity) {
 		this.capacity = capacity;
 	}
 }

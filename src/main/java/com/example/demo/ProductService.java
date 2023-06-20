@@ -64,38 +64,37 @@ public class ProductService {
 
 	public Desktop createDesktop(Desktop desktop) {
 		if (desktop.getId() != null) {
-			throw new IllegalArgumentException("New computer should not have an ID");
+			throw new IllegalArgumentException("New desktop should not have an ID");
 		}
 		return desktopRepository.save(desktop);
+	}
+
+	public Laptop createLaptop(Laptop laptop) {
+		if (laptop.getId() != null) {
+			throw new IllegalArgumentException("New laptop should not have an ID");
+		}
+		return laptopRepository.save(laptop);
+	}
+
+	public Monitor createMonitor(Monitor monitor) {
+		if (monitor.getId() != null) {
+			throw new IllegalArgumentException("New monitor should not have an ID");
+		}
+		return monitorRepository.save(monitor);
+	}
+
+	public HardDrive createHardDrive(HardDrive hardDrive) {
+		if (hardDrive.getId() != null) {
+			throw new IllegalArgumentException("New hard drive should not have an ID");
+		}
+		return hardDriveRepository.save(hardDrive);
 	}
 
 	public Desktop updateDesktop(Long id, Desktop newDesktop) {
 		Desktop desktop = desktopRepository.findById(id)
 			.orElseThrow(() -> new IllegalArgumentException("Invalid desktop ID: " + id));
 
-		var newSerialNumber = newDesktop.getSerialNumber();
-		if(newSerialNumber != null)
-		{
-			desktop.setSerialNumber(newSerialNumber);
-		}
-
-		var newManufacturer = newDesktop.getManufacturer();
-		if(newManufacturer != null)
-		{
-			desktop.setManufacturer(newManufacturer);
-		}
-
-		var newPrice = newDesktop.getPrice();
-		if(newPrice != null)
-		{
-			desktop.setPrice(newPrice);
-		}
-
-		var newQuantity = newDesktop.getQuantity();
-		if(newQuantity != null)
-		{
-			desktop.setQuantity(newQuantity);
-		}
+		desktop = (Desktop) updateProduct(id, newDesktop);
 
 		var newFormFactor = newDesktop.getFormFactor();
 		if(newFormFactor != null)
@@ -103,6 +102,78 @@ public class ProductService {
 			desktop.setFormFactor(newFormFactor);
 		}
 		return desktopRepository.save(desktop);
+	}
+
+	public Laptop updateLaptop(Long id, Laptop newLaptop) {
+		Laptop laptop = laptopRepository.findById(id)
+			.orElseThrow(() -> new IllegalArgumentException("Invalid laptop ID: " + id));
+
+		laptop = (Laptop) updateProduct(id, newLaptop);
+
+		var newSize = newLaptop.getSize();
+		if(newSize != null)
+		{
+			laptop.setSize(newSize);
+		}
+		return laptopRepository.save(laptop);
+	}
+
+	public Monitor updateMonitor(Long id, Monitor newMonitor) {
+		Monitor monitor = monitorRepository.findById(id)
+			.orElseThrow(() -> new IllegalArgumentException("Invalid monitor ID: " + id));
+
+		monitor = (Monitor) updateProduct(id, newMonitor);
+
+		var newDiagonal = newMonitor.getDiagonal();
+		if(newDiagonal != null)
+		{
+			monitor.setDiagonal(newDiagonal);
+		}
+		return monitorRepository.save(monitor);
+	}
+
+	public HardDrive updateHardDrive(Long id, HardDrive newHardDrive) {
+		HardDrive hardDrive = hardDriveRepository.findById(id)
+			.orElseThrow(() -> new IllegalArgumentException("Invalid hard drive ID: " + id));
+
+		hardDrive = (HardDrive) updateProduct(id, newHardDrive);
+
+		var newCapacity = newHardDrive.getCapacity();
+		if(newCapacity != null)
+		{
+			hardDrive.setCapacity(newCapacity);
+		}
+		return hardDriveRepository.save(hardDrive);
+	}
+
+	private Product updateProduct(Long id, Product newProduct) {
+		Product product = productRepository.findById(id)
+			.orElseThrow(() -> new IllegalArgumentException("Invalid product ID: " + id));
+
+		var newSerialNumber = newProduct.getSerialNumber();
+		if(newSerialNumber != null)
+		{
+			product.setSerialNumber(newSerialNumber);
+		}
+
+		var newManufacturer = newProduct.getManufacturer();
+		if(newManufacturer != null)
+		{
+			product.setManufacturer(newManufacturer);
+		}
+
+		var newPrice = newProduct.getPrice();
+		if(newPrice != null)
+		{
+			product.setPrice(newPrice);
+		}
+
+		var newQuantity = newProduct.getQuantity();
+		if(newQuantity != null)
+		{
+			product.setQuantity(newQuantity);
+		}
+		return productRepository.save(product);
 	}
 }
 

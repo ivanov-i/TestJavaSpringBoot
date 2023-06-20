@@ -6,13 +6,13 @@ import jakarta.persistence.Entity;
 @Entity
 public class Monitor extends Product {
 	@Column(name = "diagonal")
-    private double diagonal;
+    private Double diagonal;
 
-	public double getDiagonal() {
+	public Double getDiagonal() {
 		return diagonal;
 	}
 
-	public void setDiagonal(double diagonal) {
+	public void setDiagonal(Double diagonal) {
 		this.diagonal = diagonal;
 	}
 }

@@ -92,9 +92,39 @@ public class ProductController {
 		try {
 			var result = productService.createDesktop(newDesktop);
 			return ResponseEntity.ok(convertToDTO(result));
-		    } catch (IllegalArgumentException e) {
-				return ResponseEntity.badRequest().body(e.getMessage());
-			}
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+
+	@PostMapping("/laptops")
+	public ResponseEntity<?> createLaptop(@RequestBody Laptop newLaptop) {
+		try {
+			var result = productService.createLaptop(newLaptop);
+			return ResponseEntity.ok(convertToDTO(result));
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+
+	@PostMapping("/monitors")
+	public ResponseEntity<?> createMonitor(@RequestBody Monitor newMonitor) {
+		try {
+			var result = productService.createMonitor(newMonitor);
+			return ResponseEntity.ok(convertToDTO(result));
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+
+	@PostMapping("/hdds")
+	public ResponseEntity<?> createHardDrive(@RequestBody HardDrive newHardDrive) {
+		try {
+			var result = productService.createHardDrive(newHardDrive);
+			return ResponseEntity.ok(convertToDTO(result));
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 
 	@PutMapping("/desktops/{id}")
@@ -102,9 +132,39 @@ public class ProductController {
 		try {
 			var result = productService.updateDesktop(id, newDesktop);
 			return ResponseEntity.ok(convertToDTO(result));
-		    } catch (IllegalArgumentException e) {
-				return ResponseEntity.badRequest().body(e.getMessage());
-			}
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+
+	@PutMapping("/laptops/{id}")
+	public ResponseEntity<?> updateLaptop(@PathVariable Long id, @RequestBody Laptop newLaptop) {
+		try {
+			var result = productService.updateLaptop(id, newLaptop);
+			return ResponseEntity.ok(convertToDTO(result));
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+
+	@PutMapping("/monitors/{id}")
+	public ResponseEntity<?> updateMonitor(@PathVariable Long id, @RequestBody Monitor newMonitor) {
+		try {
+			var result = productService.updateMonitor(id, newMonitor);
+			return ResponseEntity.ok(convertToDTO(result));
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+
+	@PutMapping("/hdds/{id}")
+	public ResponseEntity<?> updateHardDrive(@PathVariable Long id, @RequestBody HardDrive newHardDrive) {
+		try {
+			var result = productService.updateHardDrive(id, newHardDrive);
+			return ResponseEntity.ok(convertToDTO(result));
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 
     private ProductDTO convertToDTO(Product product) {

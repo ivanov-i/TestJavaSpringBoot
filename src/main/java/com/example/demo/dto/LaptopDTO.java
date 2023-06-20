@@ -3,18 +3,18 @@ package com.example.demo.dto;
 import java.math.BigDecimal;
 
 public class LaptopDTO extends ProductDTO {
-    private int size;
+    private double size;
 
-	public LaptopDTO(Long id, String serialNumber, String manufacturer, BigDecimal price, int quantity, int size2) {
+	public LaptopDTO(Long id, String serialNumber, String manufacturer, BigDecimal price, int quantity, double size2) {
 		super(id, serialNumber, manufacturer, price, quantity);
 		this.size = size2;
 	}
 
-	public int getSize() {
+	public double getSize() {
 		return size;
 	}
 
-	public void setSize(int size) {
+	public void setSize(double size) {
 		this.size = size;
 	}
 }
